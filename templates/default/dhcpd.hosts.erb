@@ -1,0 +1,14 @@
+## File managed by Chef
+<% if !node["databag"]["domains"].empty? -%>
+## Using databag <%=node["databag"]["domains"] %>
+<% Array(node["dhcp"]["hosts"]).each do |host| -%>
+<% if host[1].has_key?("mac") -%>
+host <%= host[0] %> {
+  hardware ethernet <%= host[1]["mac"] %>;
+  fixed-address <%= host[1]["ip"] %>;
+  option host-name "<%= host[0] %>";
+}
+
+<% end -%>
+<% end -%>
+<% end -%>

@@ -1,0 +1,54 @@
+## This file is managed by Chef
+authoritative;
+default-lease-time <%= node["dhcp"]["lease"]["default_time"] %>;
+max-lease-time <%= node["dhcp"]["lease"]["max_time"] %>;
+log-facility <%= node["dhcp"]["log"]["facility"] %>;
+
+#############
+## Options
+#############
+option domain-name "<%= node["dhcp"]["option"]["domain_name"] %>";
+option domain-name-servers <%= node["dhcp"]["option"]["dns_servers"] %>;
+<% if !node["dhcp"]["option"]["ntp_servers"].empty? -%>
+option ntp-servers <%= node["dhcp"]["option"]["ntp_servers"] %>;
+<% end -%>
+option fqdn.no-client-update <%= node["dhcp"]["option"]["fqdn_no_client_update"] %>;
+option fqdn.rcode2 <%= node["dhcp"]["option"]["fqdn_rcode2"] %>;
+option pxegrub code 150 = <%= node["dhcp"]["option"]["pxegrub_code"] %>;
+
+## Recipe has now support for dyn dns
+ddns-update-style none;
+
+<% if !node["dhcp"]["failover"]["peer"].empty? -%>
+#########################
+## Failover Configuration
+#########################
+failover peer "<%= node["dhcp"]["failover"]["peer"] -%>" {
+      <%= node["dhcp"]["failover"]["role"] %>;
+      address <%= node["ipaddress"] %>;
+      port <%= node["dhcp"]["failover"]["port"] %>;
+      peer address <%= node["dhcp"]["failover"]["peer_address"] %>;
+      peer port <%= node["dhcp"]["failover"]["peer_port"] %>;
+      max-response-delay <%= node["dhcp"]["failover"]["max_response_delay"] %>;
+      max-unacked-updates <%= node["dhcp"]["failover"]["max_unacked_updates"] %>;
+      load balance max seconds <%= node["dhcp"]["failover"]["load_balance"] %>;
+<% if node["dhcp"]["failover"]["role"] == "primary" -%>
+      mclt <%= node["dhcp"]["failover"]["mclt"] %>;
+      split <%= node["dhcp"]["failover"]["split"] %>;
+<% end -%>
+}
+<% end -%>
+
+<% if !node["dhcp"]["pxe"]["server"].empty? -%>
+####################
+## PXE Configuration
+###################
+next-server <%= node["dhcp"]["pxe"]["server"] %>;
+filename "<%= node["dhcp"]["pxe"]["filename"] %>";
+<% end -%> 
+
+###################
+## Extra Configuration
+###################
+include "<%= "#{node["dhcp"]["dhcp_dir"]}/dhcpd.pools" %>";
+include "<%= "#{node["dhcp"]["dhcp_dir"]}/dhcpd.hosts" %>";

@@ -1,0 +1,17 @@
+# This file is managed by Chef
+
+#################
+# <%= node["dhcp"]["option"]["domain_name"] %>
+################# 
+subnet <%= node["dhcp"]["pool"]["network"] %> netmask <%= node["dhcp"]["pool"]["mask"] %> {
+  pool
+  {
+  <% if !node["dhcp"]["pool"]["failover"].empty? -%>
+    failover peer "<%= node["dhcp"]["pool"]["failover"] %>";
+  <% end -%>
+    range <%= node["dhcp"]["pool"]["range"] %>;
+  }
+
+  option subnet-mask <%= node["dhcp"]["pool"]["mask"] %>;
+  option routers <%= node["dhcp"]["pool"]["routers"] %>;
+}
