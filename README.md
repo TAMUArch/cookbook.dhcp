@@ -1,23 +1,14 @@
-dhcp Cookbook
+DHCP Cookbook
 =============
-TODO: Enter the cookbook description here.
-
-e.g.
-This cookbook makes your favorite breakfast sandwhich.
+This cookbook installs and configures a DHCP Server.  This cookbook can work directly with our Bind cookbook allowing the use of a single data bag to store all of your network information.
 
 Requirements
 ------------
-TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
+This cookbook has only been tested and used with Ubuntu 12.04.
 
-e.g.
-#### packages
-- `toaster` - dhcp needs toaster to brown your bagel.
 
 Attributes
 ----------
-TODO: List you cookbook attributes here.
-
-e.g.
 #### dhcp::default
 <table>
   <tr>
@@ -27,20 +18,36 @@ e.g.
     <th>Default</th>
   </tr>
   <tr>
-    <td><tt>['dhcp']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
+    <td><tt>['databag']['domains']</tt></td>
+    <td>String</td>
+    <td>A domains databag to use with this cookbook.  Not required.</td>
+    <td><tt></tt></td>
+  </tr>
+  <tr>
+    <td><tt>['dhcp']['option']['domain_name']</tt></td>
+    <td>String</td>
+    <td>Default domain name for dhcp</td>
+    <td><tt></tt></td>
+  </tr>
+  <tr>
+    <td><tt>['dhcp']['option']['dns_servers']</tt></td>
+    <td>Array</td>
+    <td>List of dns servers</td>
+    <td><tt></tt></td>
+  </tr>
+  <tr>
+    <td><tt>['dhcp']['option']['ntp_servers']</tt></td>
+    <td>Array</td>
+    <td>List of ntp servers</td>
+    <td><tt></tt></td>
   </tr>
 </table>
 
 Usage
 -----
 #### dhcp::default
-TODO: Write usage instructions for each cookbook.
 
-e.g.
-Just include `dhcp` in your node's `run_list`:
+Include dhcp in your run list and set the above defaults in your node definition.
 
 ```json
 {
@@ -53,9 +60,6 @@ Just include `dhcp` in your node's `run_list`:
 
 Contributing
 ------------
-TODO: (optional) If this is a public cookbook, detail the process for contributing. If this is a private cookbook, remove this section.
-
-e.g.
 1. Fork the repository on Github
 2. Create a named feature branch (like `add_component_x`)
 3. Write you change
@@ -65,4 +69,4 @@ e.g.
 
 License and Authors
 -------------------
-Authors: TODO: List authors
+Authors: Jim Rosser 
