@@ -13,12 +13,12 @@ end
 
 ## Assume if empty not managing hosts with databag
 unless node[:dhcp][:databag].empty?
-  node.set[:dhcp][:hosts] = data_bag_item("domains", node[:dhcp][:databag])["hosts"]
-  node.set[:dhcp][:option][:dns_servers] = data_bag_item("domains", node[:dhcp][:databag])["nameservers"] * ", "
-  node.set[:dhcp][:option][:domain_name] = data_bag_item("domains", node[:dhcp][:databag])["id"]
-  node.set[:dhcp][:pool][:mask] = data_bag_item("domains", node[:dhcp][:databag])["netmask"]
-  node.set[:dhcp][:pool][:network] = data_bag_item("domains", node[:dhcp][:databag])["network"] 
-  node.set[:dhcp][:pool][:routers] = data_bag_item("domains", node[:dhcp][:databag])["gateway"]
+  node.set[:dhcp][:hosts] = data_bag_item("zones", node[:dhcp][:databag])["hosts"]
+  node.set[:dhcp][:option][:dns_servers] = data_bag_item("zones", node[:dhcp][:databag])["nameservers"] * ", "
+  node.set[:dhcp][:option][:domain_name] = data_bag_item("zones", node[:dhcp][:databag])["id"]
+  node.set[:dhcp][:pool][:mask] = data_bag_item("zones", node[:dhcp][:databag])["netmask"]
+  node.set[:dhcp][:pool][:network] = data_bag_item("zones", node[:dhcp][:databag])["network"] 
+  node.set[:dhcp][:pool][:routers] = data_bag_item("zones", node[:dhcp][:databag])["gateway"]
 end
 
 template ::File.join(node[:dhcp][:dhcp_dir], 'dhcpd.hosts') do

@@ -47,10 +47,8 @@ default[:dhcp][:pxe][:filename] = "pxelinux.0"
 # Package name, dhcp dir, service name
 case node[:platform]
 when 'debian', 'ubuntu'
-  if node[:platform_version] < '12.04'
-    default[:dhcp][:package_name] = 'isc-dhcp-server'
-    default[:dhcp][:service_name] = "isc-dhcp-server"
-  end
+  default[:dhcp][:package_name] = 'isc-dhcp-server'
+  default[:dhcp][:service_name] = "isc-dhcp-server"
   default[:dhcp][:dhcp_dir] = "/etc/dhcp"
 when 'rhel', 'centos', 'amazon', 'scientific'
   default[:dhcp][:package_name] = 'dhcp'

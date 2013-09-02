@@ -1,6 +1,6 @@
 ## File managed by Chef
-<% if !node["databag"]["domains"].empty? -%>
-## Using databag <%=node["databag"]["domains"] %>
+<% if !node["dhcp"]["databag"].empty? -%>
+## Using databag <%=node["dhcp"]["databag"] %>
 <% Array(node["dhcp"]["hosts"]).each do |host| -%>
 <% if host[1].has_key?("mac") -%>
 host <%= host[0] %> {
