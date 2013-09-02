@@ -45,6 +45,13 @@ default[:dhcp][:pxe][:server]
 default[:dhcp][:pxe][:filename] = "pxelinux.0"
 
 # Package name, dhcp dir, service name
+case node[:platform]
+when 'debian', 'ubuntu'
+  if node[:platform_version] < '12.04'
+  default[:dhcp][:package_name] = 'isc-dhcp-server'
+when 'rhel', 'centos', 'amazon', 'scientific'
+
+end
 default[:dhcp][:package_name] = "isc-dhcp-server"
 default[:dhcp][:dhcp_dir] = "/etc/dhcp"
 default[:dhcp][:service_name] = "isc-dhcp-server"

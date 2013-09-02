@@ -4,5 +4,5 @@ maintainer_email 'jarosser06@arch.tamu.edu'
 license          'MIT'
 description      'Installs/Configures dhcp server'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '13.3.0'
+version          '0.1.0'
 supports 'ubuntu', '>= 12.04'
