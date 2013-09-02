@@ -1,5 +1,5 @@
 ## Domain Databag
-default[:databag][:domains]
+default[:dhcp][:databag]
 default[:dhcp][:hosts]
 
 # DHCP Lease Settings
@@ -28,9 +28,9 @@ default[:dhcp][:pool][:routers]
 
 # DHCP Failover
 # if peer not set assume no failover
-default[:dhcp][:failover][:peer] = node["dhcp"]["pool"]["failover"]
+default[:dhcp][:failover][:peer] = node[:dhcp][:pool][:failover]
 default[:dhcp][:failover][:role] = "primary"
-default[:dhcp][:failover][:ip_address] = node['ipaddress']
+default[:dhcp][:failover][:ip_address] = node[:ipaddress]
 default[:dhcp][:failover][:peer_address]
 default[:dhcp][:failover][:port] = "647"
 default[:dhcp][:failover][:peer_port] = "647"
@@ -48,10 +48,12 @@ default[:dhcp][:pxe][:filename] = "pxelinux.0"
 case node[:platform]
 when 'debian', 'ubuntu'
   if node[:platform_version] < '12.04'
-  default[:dhcp][:package_name] = 'isc-dhcp-server'
+    default[:dhcp][:package_name] = 'isc-dhcp-server'
+    default[:dhcp][:service_name] = "isc-dhcp-server"
+  end
+  default[:dhcp][:dhcp_dir] = "/etc/dhcp"
 when 'rhel', 'centos', 'amazon', 'scientific'
-
+  default[:dhcp][:package_name] = 'dhcp'
+  default[:dhcp][:service_name] = 'dhcpd'
+  default[:dhcp][:dhcp_dir] = "/etc/dhcp3"
 end
-default[:dhcp][:package_name] = "isc-dhcp-server"
-default[:dhcp][:dhcp_dir] = "/etc/dhcp"
-default[:dhcp][:service_name] = "isc-dhcp-server"
