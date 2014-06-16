@@ -84,7 +84,7 @@ class Chef
         @conf_file.cookbook 'dhcp'
         @conf_file.variables(
           hostname: new_resource.host_name,
-          physical_addr: new_resource.physical_address,
+          physical_address: new_resource.physical_address,
           fixed_address: new_resource.fixed_address,
           options: new_resource.options
         )
