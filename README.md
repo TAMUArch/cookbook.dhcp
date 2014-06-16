@@ -1,11 +1,11 @@
 DHCP Cookbook
 =============
-This cookbook installs and configures a DHCP Server.  This cookbook can work directly with our Bind cookbook allowing the use of a single data bag to store all of your network information.
+This cookbook installs and configures a DHCP Server.
 
 Requirements
 ------------
-This cookbook has only been tested and used with Ubuntu 12.04.
-
+- CentOS, RHEL, Scientific Linux
+- Ubuntu
 
 Attributes
 ----------
@@ -16,12 +16,6 @@ Attributes
     <th>Type</th>
     <th>Description</th>
     <th>Default</th>
-  </tr>
-  <tr>
-    <td><tt>['databag']['domains']</tt></td>
-    <td>String</td>
-    <td>A domains databag to use with this cookbook.  Not required.</td>
-    <td><tt></tt></td>
   </tr>
   <tr>
     <td><tt>['dhcp']['option']['domain_name']</tt></td>
@@ -42,6 +36,77 @@ Attributes
     <td><tt></tt></td>
   </tr>
 </table>
+
+Recipes
+-------
+#### default
+Installs DHCP and sets up the core config
+
+Resource/Provider
+-----------------
+
+### dhcp_subnet
+
+#### actions
+
+- **add** - adds the subnet
+- **remove** - removes the subnet
+
+#### attributes
+
+- **network** - the network
+- **netmask** - corresponding netmask for the network
+- **options** - array of options
+
+##### unkown attributes
+It would be way too much work to maintain an attribute for every
+possible option you can pass to subnet so this resource allows the
+ability of dynamically creating one.
+
+ex:
+```ruby
+dhcp_subnet '192.168.134.0' do
+  max_lease_time 03430
+end
+```
+
+The above example would generate the following line in the
+actual config.
+
+```
+max-lease-time "03430";
+```
+
+##### pool block
+This resource provides the ability to add pools to a subnet using a
+chef like DSL.
+
+ex:
+```ruby
+dhcp_subnet '192.168.134.0' do
+  netmask '255.255.255.0'
+  pool 'test1' do
+    range '192.168.134.1 192.168.134.128'
+    max_lease_time 2888
+    options(['routers 192.168.134.254'])
+  end
+  deny 'unknown-clients'
+end
+```
+
+### dhcp_host
+
+#### actions
+
+- **add** - adds the host
+- **remove** - removes the host
+
+#### attributes
+
+- **physical_address** - the mac address of the host
+- **fixed_address** - the ip address of the host
+- **options** - Array of options to pass
+- **host_name** - Host name of the host (defaults to the resource name)
 
 Usage
 -----
@@ -69,4 +134,4 @@ Contributing
 
 License and Authors
 -------------------
-Authors: Jim Rosser 
+Authors: Jim Rosser
