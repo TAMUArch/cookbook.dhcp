@@ -1,0 +1,7 @@
+host <%= @hostname %> {
+  hardware ethernet <%= @physical_address %>;
+  fixed-address <%= @fixed_address %>;
+  <% @options.each do |name, value| -%>
+    <%= name %> <%= value %>;
+  <% end -%>
+}
