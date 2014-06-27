@@ -1,9 +1,21 @@
-# CHANGELOG for dhcp
+dhcp CHANGELOG
+==============
 
-## 0.1.1:
+1.0.0-beta1
+-----------
 
-* cleaned up alot
+- Added dhcp_subnet resource
+- Added dhcp_host resource
+- Removed Data bag recipe
+- Cleaned up syntax
+- Added CentOS support
 
-## 0.1.0:
+0.1.1
+-----
 
-* Initial release of dhcp
+- cleaned up alot
+
+0.1.0
+-----
+
+- Initial release of dhcp
