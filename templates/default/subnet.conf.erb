@@ -1,0 +1,26 @@
+# This file is managed by Chef
+
+subnet <%= @network %> netmask <%= @netmask %> {
+<% @pools.each do |pool| -%>
+  pool
+  {
+  <% pool.each do |key, val| -%>
+    <% if key == 'options' -%>
+      <% val.each do |opt| -%>
+    option <%= opt %>;
+      <% end -%>
+    <% else -%>
+    <%= key.to_s.gsub('_', '-') %> <%= val %>;
+    <% end -%>
+  <% end -%>
+  }
+<% end -%>
+
+<% @options.each do |opt| -%>
+  option <%= opt %>;
+<% end -%>
+
+<% @subnet_options.each do |key, val| -%>
+  <%= key.to_s.gsub('_', '-') %> <%= val %>;
+<% end -%>
+}

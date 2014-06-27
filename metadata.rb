@@ -6,3 +6,4 @@ description      'Installs/Configures dhcp server'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.1.1'
 supports 'ubuntu', '>= 12.04'
+supports 'centos', '>= 6.4'

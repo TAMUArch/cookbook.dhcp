@@ -1,0 +1,4 @@
+# This file is managed by Chef
+<% @dhcp_items.each do |dhcp_item| -%>
+include "<%= dhcp_item %>";
+<% end -%>
