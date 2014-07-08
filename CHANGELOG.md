@@ -1,14 +1,15 @@
 dhcp CHANGELOG
 ==============
 
-1.0.0-beta1
------------
+1.0.0 (Unreleased)
+------------------
 
 - Added dhcp_subnet resource
 - Added dhcp_host resource
 - Removed Data bag recipe
 - Cleaned up syntax
 - Added CentOS support
+- Added Support for Ubuntu 14.04
 
 0.1.1
 -----
