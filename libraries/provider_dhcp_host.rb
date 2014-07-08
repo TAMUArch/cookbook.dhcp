@@ -43,8 +43,8 @@ class Chef
         @host_list.cookbook 'dhcp'
         @host_list.source 'list.conf.erb'
         @host_list.variables(dhcp_items: get_list)
-        @host_list.group 'root'
-        @host_list.owner 'root'
+        @host_list.group dhcp_group
+        @host_list.owner dhcp_user
         @host_list
       end
 
@@ -88,8 +88,8 @@ class Chef
           fixed_address: new_resource.fixed_address,
           options: new_resource.options
         )
-        @conf_file.group 'root'
-        @conf_file.owner 'root'
+        @conf_file.group dhcp_group
+        @conf_file.owner dhcp_user
         @conf_file
       end
     end

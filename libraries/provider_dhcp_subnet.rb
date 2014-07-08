@@ -43,8 +43,8 @@ class Chef
         @subnet_list.cookbook 'dhcp'
         @subnet_list.source 'list.conf.erb'
         @subnet_list.variables(dhcp_items: get_list)
-        @subnet_list.group 'root'
-        @subnet_list.owner 'root'
+        @subnet_list.group dhcp_group
+        @subnet_list.owner dhcp_user
         @subnet_list
       end
 
@@ -80,8 +80,8 @@ class Chef
           options: new_resource.options,
           subnet_options: new_resource.subnet_options
         )
-        @conf_file.group 'root'
-        @conf_file.owner 'root'
+        @conf_file.group dhcp_group
+        @conf_file.owner dhcp_user
         @conf_file
       end
     end
