@@ -6,6 +6,14 @@ module Dhcp
       run_context.resource_collection.find(service: name)
     end
 
+    def dhcp_user
+      run_context.node.dhcp.user
+    end
+
+    def dhcp_group
+      run_context.node.dhcp.group
+    end
+
     def dhcp_base_dir
       run_context.node.dhcp.dir
     end

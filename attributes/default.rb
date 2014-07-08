@@ -34,8 +34,17 @@ case node['platform']
 when 'debian', 'ubuntu'
   default['dhcp']['package_name'] = 'isc-dhcp-server'
   default['dhcp']['service_name'] = 'isc-dhcp-server'
+  if node['platform_version'] >= "14.04"
+    default['dhcp']['user'] = 'dhcpd'
+    default['dhcp']['group'] = 'dhcpd'
+  else
+    default['dhcp']['user'] = 'root'
+    default['dhcp']['group'] = 'root'
+  end
   default['dhcp']['dir'] = '/etc/dhcp'
 when 'rhel', 'centos', 'amazon', 'scientific'
+  default['dhcp']['user'] = 'root'
+  default['dhcp']['group'] = 'root'
   default['dhcp']['package_name'] = 'dhcp'
   default['dhcp']['service_name'] = 'dhcpd'
   default['dhcp']['dir'] = '/etc/dhcp'

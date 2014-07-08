@@ -7,6 +7,9 @@
 # All rights reserved - Do Not Redistribute
 #
 
+dhcp_group = node['dhcp']['group']
+dhcp_user = node['dhcp']['user']
+
 package node['dhcp']['package_name'] do
   action [:install]
 end
@@ -14,8 +17,8 @@ end
 template ::File.join(node['dhcp']['dir'], 'dhcpd.conf') do
   source 'dhcpd.conf.erb'
   mode 0655
-  group  'root'
-  owner  'root'
+  group dhcp_group
+  owner dhcp_user
   notifies :restart, "service[#{node['dhcp']['service_name']}]"
 end
 
@@ -26,15 +29,15 @@ end
   directory list_path do
     action :create
     mode 0655
-    group 'root'
-    owner 'root'
+    group dhcp_group
+    owner dhcp_user
   end
 
   file empty_list do
     action :create_if_missing
     mode 0644
-    group 'root'
-    owner 'root'
+    group dhcp_group
+    owner dhcp_user
   end
 end
 
