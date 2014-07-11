@@ -16,7 +16,7 @@ option <%= opt %> <%= val %>;
 ddns-update-style none;
 
 <% unless node['dhcp']['failover']['peer'].empty? -%>
-failover peer '<%= node['dhcp']['failover']['peer'] -%>' {
+failover peer "<%= node['dhcp']['failover']['peer'] -%>" {
       <%= node['dhcp']['failover']['role'] %>;
       address <%= node['ipaddress'] %>;
       port <%= node['dhcp']['failover']['port'] %>;
