@@ -16,7 +16,7 @@ platforms:
 - name: centos-7.0
   run_list:
   - recipe[yum-epel]
-- name: centos-6.4
+- name: centos-6.6
   run_list:
   - recipe[yum-epel]
 
