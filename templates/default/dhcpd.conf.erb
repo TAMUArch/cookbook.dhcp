@@ -34,7 +34,7 @@ failover peer "<%= node['dhcp']['failover']['peer'] -%>" {
 
 <% unless node['dhcp']['pxe']['server'].empty? -%>
 next-server <%= node['dhcp']['pxe']['server'] %>;
-filename '<%= node['dhcp']['pxe']['filename'] %>';
+filename "<%= node['dhcp']['pxe']['filename'] %>";
 <% end -%> 
 
 include "<%= ::File.join(node['dhcp']['dir'], 'dhcpd.subnets.d/list.conf') %>";
