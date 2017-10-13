@@ -1,5 +1,9 @@
 # CHANGELOG for dhcp
 
+## 0.2.2:
+
+* Change service to enabled/start so does not stop when no new template data
+
 ## 0.2.1:
 
 * Added Support for Ubuntu 14.04 (pulled from the v1.0.0 unreleased tag)

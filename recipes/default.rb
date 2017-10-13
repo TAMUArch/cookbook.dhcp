@@ -46,5 +46,5 @@ template ::File.join(node[:dhcp][:dhcp_dir], 'dhcpd.pools') do
 end
 
 service node[:dhcp][:service_name] do
-  action [:disable, :stop]
+  action [:enable, :start]
 end
